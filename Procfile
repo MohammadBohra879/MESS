@@ -1,1 +1,1 @@
-web: gunicorn myorg.wsgi && python manage.py collectstatic --noinput
+web: gunicorn tamohdorg.wsgi  && python manage.py collectstatic --noinput
