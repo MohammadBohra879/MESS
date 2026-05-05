@@ -1,0 +1,267 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Profile | MESS Medical Equipment Sharing System</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#f6f7f8",
+                        "primary": "#2d96eb",
+                        "error": "#ef4444",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#cbd5e1",
+                        "tertiary-fixed": "#e2e8f0",
+                        "tertiary-container": "#334155",
+                        "on-secondary-fixed-variant": "#334155",
+                        "background": "#f6f7f8",
+                        "inverse-surface": "#1e293b",
+                        "secondary-fixed": "#f1f5f9",
+                        "primary-fixed": "#d0e4ff",
+                        "surface-tint": "#2d96eb",
+                        "on-tertiary-fixed": "#0f172a",
+                        "tertiary": "#0f172a",
+                        "on-secondary-fixed": "#0f172a",
+                        "inverse-on-surface": "#f1f5f9",
+                        "surface-container-highest": "#ebeef5",
+                        "on-secondary-container": "#1e293b",
+                        "outline": "#cbd5e1",
+                        "on-error-container": "#991b1b",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f8f9ff",
+                        "on-primary-fixed": "#001d35",
+                        "surface-dim": "#d7dae1",
+                        "on-tertiary-container": "#f8fafc",
+                        "outline-variant": "#e2e8f0",
+                        "secondary-container": "#e2e8f0",
+                        "on-tertiary-fixed-variant": "#1e293b",
+                        "primary-container": "#2d96eb",
+                        "on-background": "#0f172a",
+                        "on-surface-variant": "#475569",
+                        "surface-container": "#ffffff",
+                        "on-surface": "#0f172a",
+                        "secondary": "#475569",
+                        "error-container": "#fee2e2",
+                        "tertiary-fixed-dim": "#94a3b8",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#f1f5f9",
+                        "primary-fixed-dim": "#9ccaff",
+                        "on-primary-container": "#ffffff",
+                        "inverse-primary": "#9ccaff",
+                        "surface-container-high": "#f1f3fb",
+                        "on-primary-fixed-variant": "#00497b"
+                    },
+                    fontFamily: {
+                        "headline": ["Oxygen", "Inter", "sans-serif"],
+                        "body": ["Oxygen", "Inter", "sans-serif"],
+                        "label": ["Oxygen", "Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Oxygen', 'Inter', 'sans-serif'; background-color: #f6f7f8; }
+    </style>
+</head>
+<body class="text-on-background bg-background min-h-screen">
+<!-- TopNavBar Component -->
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md shadow-sm">
+<div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+<div class="flex items-center gap-3">
+<a href="{% url 'homepage' %}"><img src="{% static 'assets/ChatGPT Image Mar 18, 2026, 06_21_26 AM.png' %}" alt="Medical Icon" class="flex h-20 w-25 items-center justify-center rounded-lg bg-primary text-white0"></a>
+</div>
+<!-- Desktop Nav -->
+<nav class="hidden flex-1 justify-center gap-8 lg:flex">
+<a class="text-sm font-semibold text-slate-700 hover:text-primary dark:text-slate-300" href="{% url 'homepage' %}">Home</a>
+<a class="text-sm font-semibold text-slate-700 hover:text-primary dark:text-slate-300" href="{% url 'equipment-list' %}">Products</a>
+<a class="text-sm font-semibold text-slate-700 hover:text-primary dark:text-slate-300" href="{% url 'add-equip' %}">Post Product</a>
+</nav>
+<!-- Search Bar Integrated in Header as requested -->
+ <form method="GET" action="{% url 'equipment-list' %}" class="hidden md:flex flex-1 max-w-xs mx-8">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input name="q" value="{{ request.GET.q }}" class="block w-full pl-10 pr-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/50 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Search for ventilators, monitors..." type="text"/>
+</div>
+</form>
+<div class="flex items-center gap-2 lg:gap-3">
+<!-- User Profile (Consistent with SCREEN_12) -->
+<div class="relative flex items-center gap-2 group cursor-pointer rounded-lg p-1 pr-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<div class="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary overflow-hidden">
+<span class="material-symbols-outlined">account_circle</span>
+</div>
+<span class="hidden sm:block text-sm font-semibold text-slate-700 dark:text-slate-300">{{ username }}</span>
+<span class="material-symbols-outlined text-slate-400 text-sm">expand_more</span>
+<div class="absolute right-0 top-full mt-2 w-48 rounded-xl border border-primary/10 bg-white p-2 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 dark:bg-slate-800">
+<a class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-primary/10 rounded-lg" href="{% url 'profile' %}">Profile</a>
+<a class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-primary/10 rounded-lg" href="{% url 'my-equip' %}">My Products</a>
+<a class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-primary/10 rounded-lg" href="{% url 'my-req' %}">My Requests</a>
+<a class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-primary/10 rounded-lg" href="{% url 'received-req' %}">Received Requests</a>
+<a class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-primary/10 rounded-lg border-t border-slate-100 dark:border-slate-700 mt-1 pt-3" href="{% url 'logout' %}">Log Out</a>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="max-w-4xl mx-auto px-6 py-10">
+<!-- Header Section -->
+<header class="mb-12 text-center">
+<h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-2">My Profile</h1>
+<p class="text-slate-500 font-medium mx-auto max-w-xl">View and update your personal information and profile picture.</p>
+</header>
+<!-- Main Content Area (Centered without Sidebar) -->
+<div class="space-y-8">
+<!-- Account Details Card -->
+<section class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+<!-- Cover/Avatar Header -->
+<div class="h-32 bg-gradient-to-r from-blue-500 to-blue-400"></div>
+<div class="px-8 -mt-12 flex flex-col items-center sm:flex-row sm:items-end gap-6 mb-8">
+<div class="relative group">
+<img alt="Profile" class="w-32 h-32 rounded-2xl border-4 border-white shadow-xl object-cover bg-white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0zEvFs1QAryVwsldcBcm187sP3BUEIJch3hzmyZ2Mo2UQtKG1fTFIpZRH4CP6kDIHc7VvuRBbneQiq-tYZnzytH37zevpu_zoAJHPZ5oQuGzv5qS3mB1BLVVctbHhbmetF0BHA4Tq-t3DfHUi-5crzSYtt9zRsHjZ5Ii9-DbMYxhGv3Z8QXzyIqIYR_yy1VQDMBW1EBw1zP1NpqTB2xIY_1tquchu0sebJ7Yt5xv8IW3ix5EX5C5M82NEKSCVyigGjj_YsajTla0"/>
+<button class="absolute bottom-2 right-2 p-2 bg-primary text-white rounded-lg shadow-lg hover:scale-105 transition-transform">
+</button>
+</div>
+<div class="pb-2 text-center sm:text-left">
+<h2 class="text-2xl font-bold text-slate-900">{{ username }}</h2>
+<span class="inline-flex items-center px-3 py-1 mt-1 rounded-full bg-green-100 text-green-700 text-xs font-bold uppercase tracking-wider">
+                            Verified User
+                        </span>
+</div>
+</div>
+<div class="p-8 space-y-8">
+<!-- <form action="">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+<div class="space-y-2">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-widest">Full Name</label>
+<input class="w-full bg-slate-50 border-slate-200 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 font-medium" type="text" value="{{ username }}"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-widest">Email Address</label>
+<input class="w-full bg-slate-50 border-slate-200 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 font-medium" type="email" value="{{ email }}"/>
+</div>
+<div class="space-y-2 md:col-span-2">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-widest">Contact Number</label>
+<input class="w-full bg-slate-50 border-slate-200 rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 font-medium" type="tel" value="{{ contact_number }}"/>
+</div>
+</div>
+<div class="flex items-center justify-end gap-4 pt-4 border-t border-slate-100">
+<a href="{% url 'homepage' %}">
+    <button class="px-8 py-3 text-slate-500 font-bold hover:bg-slate-50 rounded-xl transition-all" type="button">
+        Cancel
+    </button>
+</a>
+<button class="px-10 py-3 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all" type="submit">
+    Save Changes
+</button>
+</div>
+</form> -->
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+
+        <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-500 uppercase tracking-widest">Full Name</label>
+            <input name="name" type="text"
+                class="w-full bg-slate-50 border-slate-200 rounded-xl px-4 py-3.5"
+                value="{{ username }}" />
+        </div>
+
+        <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-500 uppercase tracking-widest">Email Address</label>
+            <input name="email" type="email"
+                class="w-full bg-slate-50 border-slate-200 rounded-xl px-4 py-3.5"
+                value="{{ email }}" />
+        </div>
+
+        <div class="space-y-2 md:col-span-2">
+            <label class="text-xs font-bold text-slate-500 uppercase tracking-widest">Contact Number</label>
+            <input name="contact_no" type="tel"
+                class="w-full bg-slate-50 border-slate-200 rounded-xl px-4 py-3.5"
+                value="{{ contact_number }}" />
+        </div>
+
+    </div>
+
+    <!-- hidden location -->
+    <input type="hidden" name="lat" id="lat">
+    <input type="hidden" name="long" id="long">
+
+    <div class="flex items-center justify-end gap-4 pt-4 border-t border-slate-100">
+
+        <a href="{% url 'homepage' %}">
+            <button type="button" class="px-8 py-3 text-slate-500 font-bold">Cancel</button>
+        </a>
+
+        <button type="submit"
+            class="px-10 py-3 bg-primary text-white font-bold rounded-xl">
+            Save Changes
+        </button>
+
+    </div>
+</form>
+<script>
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        document.getElementById("lat").value = position.coords.latitude;
+        document.getElementById("long").value = position.coords.longitude;
+    });
+}
+</script>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer Component -->
+<footer class="border-t border-primary/10 bg-white py-12 dark:bg-slate-950 lg:py-16 mt-20">
+<div class="mx-auto max-w-7xl px-6 lg:px-10">
+<div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+<div class="col-span-1 md:col-span-2">
+<div class="flex items-center gap-3">
+<a href="{% url 'homepage' %}"><img src="{% static 'assets/ChatGPT Image Mar 18, 2026, 06_21_26 AM.png' %}" alt="Medical Icon" class="flex h-20 w-25 items-center justify-center rounded-lg bg-primary text-white0"></a>
+<a href="{% url 'homepage' %}">
+    <h2 class="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100 uppercase">MESS</h2>
+</a>
+</div>
+<p class="mt-4 max-w-sm text-sm text-slate-500 dark:text-slate-400 lg:text-base">
+                        Optimizing healthcare resource allocation through intelligent equipment sharing. Connecting hospitals and clinics for a healthier future.
+                    </p>
+</div>
+<div>
+<h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white lg:text-sm">Platform</h4>
+<ul class="mt-4 space-y-3 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="{% url 'homepage' %}">Home</a></li>
+<li><a class="hover:text-primary transition-colors" href="{% url 'equipment-list' %}">Products</a></li>
+<li><a class="hover:text-primary transition-colors" href="{% url 'add-equip' %}">Post Product</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white lg:text-sm">Company</h4>
+<ul class="mt-4 space-y-3 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="{% url 'about-us' %}">About MESS</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-12 border-t border-primary/10 pt-8 text-center text-xs text-slate-500 dark:text-slate-400 lg:text-sm">
+<p>© 2026 MESS Medical Equipment Sharing System. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</body></html>

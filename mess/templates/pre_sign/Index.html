@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MESS - Medical Equipment Sharing System</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2d96eb",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111a21",
+                    },
+                    fontFamily: {
+                        "display": ["Oxygen", "Inter", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .hero-height { height: 100vh; }
+        @media (max-height: 600px) { .hero-height { height: auto; min-height: 100vh; padding: 6rem 0; } }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="relative flex min-h-screen flex-col">
+<!-- Sticky Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md shadow-sm">
+<div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-10 lg:py-4">
+<div class="flex items-center gap-3">
+<a href="{% url 'index' %}">
+    <img src="/static/assets/ChatGPT Image Mar 18, 2026, 06_21_26 AM.png" alt="Medical Icon" class="flex h-20 w-25 items-center justify-center rounded-lg bg-primary text-white"></a>
+</div>
+<!-- Desktop Nav -->
+<nav class="hidden flex-1 justify-center gap-8 lg:flex">
+<a class="text-sm font-semibold text-slate-700 hover:text-primary dark:text-slate-300" href="{% url 'index' %}">Home</a>
+<a class="text-sm font-semibold text-slate-700 hover:text-primary dark:text-slate-300" href="{% url 'equipment-detail' %}">Products</a>
+<a class="text-sm font-semibold text-slate-700 hover:text-primary dark:text-slate-300" href="{% url 'login' %}">Add Product</a>
+</nav>
+<div class="flex items-center gap-2 lg:gap-3">
+<a href="{% url 'login' %}">
+    <button class="rounded-lg bg-primary px-4 py-2 text-xs font-bold text-white shadow-lg shadow-primary/20 transition hover:bg-primary/90 lg:px-5 lg:text-sm">
+                        Login
+                    </button>
+</a>
+
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="hero-height relative w-full overflow-hidden">
+<div class="absolute inset-0 bg-slate-500">
+<!-- Background Image -->
+<img alt="Medical Equipment Sharing" class="h-full w-full object-cover object-center opacity-80" src="{% static 'assets/happypeople.jpg' %}"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+</div>
+<div class="relative z-10 flex h-full items-center justify-center px-4 text-center lg:px-10">
+<div class="w-full max-w-3xl">
+<h1 class="text-3xl font-black leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+                            Share Equipment • Save Lives
+                        </h1>
+<p class="mx-auto mt-4 max-w-xl text-base font-medium text-slate-200 sm:mt-6 sm:text-lg lg:text-xl">
+                            Connecting healthcare providers to optimize medical resource sharing and ensure every patient gets the care they deserve.
+                        </p>
+<!-- Search Bar -->
+ <form method="GET" action="{% url 'equipment-detail' %}" class="mt-8 flex w-full flex-col gap-3 sm:mx-auto sm:mt-10 sm:max-w-2xl sm:flex-row">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input name="q" value="{{ request.GET.q }}" class="h-12 w-full rounded-xl border-none bg-white/95 pl-12 pr-4 text-sm text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-primary lg:h-14 lg:text-base" placeholder="Search for ventilators, monitors..." type="text"/>
+</div>
+<button class="h-12 rounded-xl bg-primary px-6 text-base font-bold text-white shadow-xl transition hover:scale-105 active:scale-95 lg:h-14 lg:px-8 lg:text-lg" type="submit">
+                                Explore Product
+                            </button>
+</form>
+</div>
+</div>
+<!-- Scroll Down Indicator -->
+<div class="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce lg:bottom-10">
+<span class="material-symbols-outlined text-white text-3xl lg:text-4xl">keyboard_double_arrow_down</span>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="mx-auto max-w-7xl px-4 py-12 lg:px-10 lg:py-16">
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+<div class="flex flex-col gap-2 rounded-xl border border-primary/10 bg-white p-6 shadow-sm dark:bg-slate-800/50 lg:p-8">
+<span class="material-symbols-outlined text-primary text-2xl lg:text-3xl">group</span>
+<p class="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 lg:mt-2 lg:text-sm">Total Users</p>
+<p class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 lg:text-4xl">{{ user_count }}</p>
+</div>
+<div class="flex flex-col gap-2 rounded-xl border border-primary/10 bg-white p-6 shadow-sm dark:bg-slate-800/50 lg:p-8">
+<span class="material-symbols-outlined text-primary text-2xl lg:text-3xl">inventory_2</span>
+<p class="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 lg:mt-2 lg:text-sm">Equipment Listed</p>
+<p class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 lg:text-4xl">{{ equipment_count }}</p>
+</div>
+<div class="flex flex-col gap-2 rounded-xl border border-primary/10 bg-white p-6 shadow-sm dark:bg-slate-800/50 sm:col-span-2 lg:col-span-1 lg:p-8">
+<span class="material-symbols-outlined text-primary text-2xl lg:text-3xl">handshake</span>
+<p class="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 lg:mt-2 lg:text-sm">Total Sharing Done</p>
+<p class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 lg:text-4xl">{{ sharing_count }}</p>
+</div>
+</div>
+</section>
+<!-- Featured Items Grid -->
+<section class="mx-auto max-w-7xl px-4 py-8 lg:px-10 lg:py-16">
+<div class="mb-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end lg:mb-10">
+<div>
+<h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white lg:text-3xl">Featured Equipment</h2>
+<p class="mt-1 text-sm text-slate-500 dark:text-slate-400 lg:mt-2 lg:text-base">Recently updated resources available for immediate allocation.</p>
+</div>
+<a class="text-sm font-bold text-primary hover:underline" href="{% url 'equipment-detail' %}">View all equipment →</a>
+</div>
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+<!-- Equipment Card 1 -->
+ {% for equip in equipment %}
+<div class="group flex flex-col overflow-hidden rounded-xl border border-primary/10 bg-white transition hover:shadow-xl dark:bg-slate-800/50">
+<div class="relative aspect-[4/3] w-full overflow-hidden">
+<img class="h-full w-full max-w-full object-cover transition duration-500 group-hover:scale-110" data-alt= "{{ equip.equipment_name }}" src="{{ equip.equipment_img }}" alt="{{ equip.equipment_name }}"/>
+<div class="absolute right-3 top-3">
+<span class="rounded-full bg-green-500/90 px-3 py-1 text-[10px] font-bold text-white backdrop-blur-sm lg:text-xs">{{ equip.available_status }}</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-4 lg:p-5">
+<h3 class="text-base font-bold text-slate-900 dark:text-white lg:text-lg">{{ equip.equipment_name }}</h3>
+<div class="mt-4 lg:mt-6">
+<a href="{% url 'equipment-detail' %}"><button class="w-full rounded-lg bg-primary/10 py-2 text-sm font-bold text-primary transition hover:bg-primary hover:text-white lg:py-2.5" type="button">
+                                    View Details
+                                </button></a>
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="border-t border-primary/10 bg-white py-12 dark:bg-background-dark lg:py-16">
+<div class="mx-auto max-w-7xl px-4 lg:px-10">
+<div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+<div class="col-span-1 md:col-span-2">
+<div class="flex items-center gap-3">
+<a href="index.html"><img src="/static/assets/ChatGPT Image Mar 18, 2026, 06_21_26 AM.png" alt="Medical Icon" class="flex h-20 w-25 items-center justify-center rounded-lg bg-primary text-white0"></a>
+<a href="index.html">
+    <h2 class="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100 uppercase">MESS</h2>
+</a>
+</div>
+<p class="mt-4 max-w-sm text-sm text-slate-500 dark:text-slate-400 lg:text-base">
+                            Optimizing healthcare resource allocation through intelligent equipment sharing. Connecting hospitals and clinics for a healthier future.
+                        </p>
+</div>
+<div>
+<h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white lg:text-sm">Platform</h4>
+<ul class="mt-4 space-y-3 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="{% url 'index' %}">Home</a></li>
+<li><a class="hover:text-primary transition-colors" href="{% url 'equipment-detail' %}">Products</a></li>
+<li><a class="hover:text-primary transition-colors" href="{% url 'login' %}">Post Product</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white lg:text-sm">Company</h4>
+<ul class="mt-4 space-y-3 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="{% url 'about-us' %}">About MESS</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-12 border-t border-primary/10 pt-8 text-center text-xs text-slate-500 dark:text-slate-400 lg:text-sm">
+<p>© 2026 MESS Medical Equipment Sharing System. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Received Requests | MESS Medical Equipment Sharing System</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#f6f7f8",
+                        "primary": "#2d96eb",
+                        "error": "#ef4444",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#cbd5e1",
+                        "tertiary-fixed": "#e2e8f0",
+                        "tertiary-container": "#334155",
+                        "on-secondary-fixed-variant": "#334155",
+                        "background": "#f6f7f8",
+                        "inverse-surface": "#1e293b",
+                        "secondary-fixed": "#f1f5f9",
+                        "primary-fixed": "#d0e4ff",
+                        "surface-tint": "#2d96eb",
+                        "on-tertiary-fixed": "#0f172a",
+                        "tertiary": "#0f172a",
+                        "on-secondary-fixed": "#0f172a",
+                        "inverse-on-surface": "#f1f5f9",
+                        "surface-container-highest": "#ebeef5",
+                        "on-secondary-container": "#1e293b",
+                        "outline": "#cbd5e1",
+                        "on-error-container": "#991b1b",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f8f9ff",
+                        "on-primary-fixed": "#001d35",
+                        "surface-dim": "#d7dae1",
+                        "on-tertiary-container": "#f8fafc",
+                        "outline-variant": "#e2e8f0",
+                        "secondary-container": "#e2e8f0",
+                        "on-tertiary-fixed-variant": "#1e293b",
+                        "primary-container": "#2d96eb",
+                        "on-background": "#0f172a",
+                        "on-surface-variant": "#475569",
+                        "surface-container": "#ffffff",
+                        "on-surface": "#0f172a",
+                        "secondary": "#475569",
+                        "error-container": "#fee2e2",
+                        "tertiary-fixed-dim": "#94a3b8",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#f1f5f9",
+                        "primary-fixed-dim": "#9ccaff",
+                        "on-primary-container": "#ffffff",
+                        "inverse-primary": "#9ccaff",
+                        "surface-container-high": "#f1f3fb",
+                        "on-primary-fixed-variant": "#00497b"
+                    },
+                    fontFamily: {
+                        "headline": ["Oxygen", "Inter", "sans-serif"],
+                        "body": ["Oxygen", "Inter", "sans-serif"],
+                        "label": ["Oxygen", "Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Oxygen', 'Inter', "sans-serif"; background-color: #f6f7f8; }
+    </style>
+</head>
+<body class="text-on-background bg-background min-h-screen flex flex-col">
+<!-- TopNavBar Component (Matched to SCREEN_81) -->
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md shadow-sm">
+<div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+<div class="flex items-center gap-3">
+<a href="{% url 'homepage' %}"><img src="{% static 'assets/ChatGPT Image Mar 18, 2026, 06_21_26 AM.png' %}" alt="Medical Icon" class="flex h-20 w-25 items-center justify-center rounded-lg bg-primary text-white0"></a>
+</div>
+<!-- Desktop Nav -->
+<nav class="hidden flex-1 justify-center gap-8 lg:flex">
+<a class="text-sm font-semibold text-slate-700 hover:text-primary dark:text-slate-300" href="{% url 'homepage' %}">Home</a>
+<a class="text-sm font-semibold text-slate-700 hover:text-primary dark:text-slate-300" href="{% url 'equipment-list' %}">Products</a>
+<a class="text-sm font-semibold text-slate-700 hover:text-primary dark:text-slate-300" href="{% url 'add-equip' %}">Post Product</a>
+</nav>
+<!-- Search Bar Integrated in Header as requested -->
+<form method="GET" action="{% url 'received-req' %}" class="hidden md:flex flex-1 max-w-xs mx-8">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input name="q" value="{{ request.GET.q }}" class="block w-full pl-10 pr-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/50 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Search received requests..." type="text"/>
+</div>
+</form>
+<div class="flex items-center gap-2 lg:gap-3">
+<!-- User Profile (Consistent with SCREEN_12) -->
+<div class="relative flex items-center gap-2 group cursor-pointer rounded-lg p-1 pr-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<div class="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary overflow-hidden">
+<span class="material-symbols-outlined">account_circle</span>
+</div>
+<span class="hidden sm:block text-sm font-semibold text-slate-700 dark:text-slate-300">{{ username }}</span>
+<span class="material-symbols-outlined text-slate-400 text-sm">expand_more</span>
+<div class="absolute right-0 top-full mt-2 w-48 rounded-xl border border-primary/10 bg-white p-2 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 dark:bg-slate-800">
+<a class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-primary/10 rounded-lg" href="{% url 'profile' %}">Profile</a>
+<a class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-primary/10 rounded-lg" href="{% url 'my-equip' %}">My Products</a>
+<a class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-primary/10 rounded-lg" href="{% url 'my-req' %}">My Requests</a>
+<a class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-primary/10 rounded-lg" href="{% url 'received-req' %}">Received Requests</a>
+<a class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-primary/10 rounded-lg border-t border-slate-100 dark:border-slate-700 mt-1 pt-3" href="{% url 'logout' %}">Log Out</a>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="max-w-7xl mx-auto px-6 py-10 flex-grow w-full">
+<!-- Header Section (Matched Layout Strategy of SCREEN_81) -->
+<header class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+<div class="space-y-2">
+<h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">Received Requests</h1>
+<p class="text-slate-500 font-medium max-w-xl">Manage incoming requests for your shared medical equipment. Review urgency and approve allocations for healthcare providers in need.</p>
+</div>
+<div class="flex bg-white p-1 rounded-xl shadow-sm border border-slate-200 h-fit">
+<button class="px-6 py-2 text-xs font-bold uppercase tracking-wider bg-primary text-white rounded-lg">All</button>
+<button class="px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-slate-700">Normal</button>
+<button class="px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-slate-700">Urgent</button>
+</div>
+</header>
+<!-- Requests Grid (Matched to SCREEN_81 Card Style) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+{% for req in requests %}
+
+<div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-transparent hover:border-primary/10 flex flex-col">
+<div class="aspect-[4/3] overflow-hidden relative">
+<img alt="{req.equipment.equipment_name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="{{ req.equipment.equipment_img.url }}"/>
+<div class="absolute top-4 left-4 flex gap-2">
+<span class="px-4 py-1.5 text-white text-[10px] font-bold rounded-full uppercase
+    {% if req.priority == 'urgent' %} bg-red-500 {% else %} bg-primary {% endif %}">
+    {{ req.priority }}
+</span>
+<span class="px-4 py-1.5 bg-white/90 backdrop-blur-md text-slate-900 text-[10px] font-bold rounded-full tracking-widest flex items-center gap-1 shadow-lg uppercase">
+                            {{ req.status }}
+                        </span>
+</div>
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between">
+<div class="space-y-2">
+<h3 class="text-xl font-bold text-slate-900 group-hover:text-primary transition-colors">{{ req.equipment.equipment_name }}</h3>
+</div>
+<div class="mt-6 pt-6 border-t border-slate-100">
+<div class="grid grid-cols-2 gap-3 mb-4">
+<a href="{% url 'approve-request' req.req_id %}"><button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2.5 px-4 rounded-lg text-sm transition-all shadow-sm active:scale-95">Approve</button></a>
+<a href="{% url 'reject-request' req.req_id %}"><button class="border border-error text-error hover:bg-error/5 font-bold py-2.5 px-4 rounded-lg text-sm transition-all active:opacity-80">Reject</button></a>
+</div>
+</div>
+</div>
+</div>
+{% empty %}
+<p class="text-center text-slate-500 col-span-full">No received requests at the moment.</p>
+{% endfor %}
+</div>
+
+</main>
+<!-- Simplified Footer (Matched to SCREEN_81) -->
+<footer class="border-t border-primary/10 bg-white py-12 dark:bg-slate-950 lg:py-16 mt-20">
+<div class="mx-auto max-w-7xl px-6 lg:px-10">
+<div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+<div class="col-span-1 md:col-span-2">
+<div class="flex items-center gap-3">
+<a href="{% url 'homepage' %}"><img src="{% static 'assets/ChatGPT Image Mar 18, 2026, 06_21_26 AM.png' %}" alt="Medical Icon" class="flex h-20 w-25 items-center justify-center rounded-lg bg-primary text-white0"></a>
+<a href="{% url 'homepage' %}">
+    <h2 class="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100 uppercase">MESS</h2>
+</a>
+</div>
+<p class="mt-4 max-w-sm text-sm text-slate-500 dark:text-slate-400 lg:text-base">
+                        Optimizing healthcare resource allocation through intelligent equipment sharing. Connecting hospitals and clinics for a healthier future.
+                    </p>
+</div>
+<div>
+<h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white lg:text-sm">Platform</h4>
+<ul class="mt-4 space-y-3 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="{% url 'homepage' %}">Home</a></li>
+<li><a class="hover:text-primary transition-colors" href="{% url 'equipment-list' %}">Products</a></li>
+<li><a class="hover:text-primary transition-colors" href="{% url 'add-equip' %}">Post Product</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white lg:text-sm">Company</h4>
+<ul class="mt-4 space-y-3 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="{% url 'about-us' %}">About MESS</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-12 border-t border-primary/10 pt-8 text-center text-xs text-slate-500 dark:text-slate-400 lg:text-sm">
+<p>© 2026 MESS Medical Equipment Sharing System. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<!-- FAB (Matched to SCREEN_81) -->
+<a href="{% url 'add-equip' %}"><button class="fixed bottom-8 right-8 h-14 w-14 bg-primary text-white rounded-full shadow-xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group z-40" type="button">
+<span class="material-symbols-outlined">add</span>
+<span class="absolute right-full mr-4 bg-slate-900 text-white text-xs font-bold py-2 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-lg">
+            Add New Product
+        </span>
+</button></a>
+</body></html>

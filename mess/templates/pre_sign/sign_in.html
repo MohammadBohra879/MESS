@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2d96eb",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111a21",
+                    },
+                    fontFamily: {
+                        "display": ["Oxygen", "Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: "Oxygen" , 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<!-- Background Content (Simulated Home Page - Updated to match SCREEN_12 structure for background context) -->
+<div class="relative flex h-screen w-full flex-col overflow-hidden">
+<header class="flex items-center justify-between border-b border-primary/10 bg-white dark:bg-slate-900 px-10 py-3">
+<div class="flex items-center gap-4 text-primary">
+<span class="material-symbols-outlined text-3xl">emergency</span>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight uppercase">MESS</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">About</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Products</a>
+</nav>
+<button class="bg-primary text-white px-6 py-2 rounded-lg font-bold text-sm">Sign In</button>
+</div>
+</header>
+<main class="flex-1 relative overflow-hidden">
+<!-- Replicating the Hero section from SCREEN_12 for the background blur effect -->
+<div class="absolute inset-0 bg-slate-900 flex flex-col items-center justify-center p-8 text-center">
+<div class="absolute inset-0 opacity-60 mix-blend-overlay bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDesPuI0g2t3OQmZb_bnWOCg_WODiTpAB9O6IQ07KGD8ycBAbNnieq0yh50P9ItpYY4ZstTDZYlbaGs16J7UrRyzptnAgeIeCadSwm0KQwELcqEQwQM0hrlTY6l70QYExCV42HqXlAju2iZErDJJKLsalRTjWnpujAOvShaWkbXNAIcNuDh2JDdBLa4e5UumQU6Ztx3Bvfi0jCbx-QAloD224mt5fbCs-jsTLnDnDrKiEQ8najWnjab72cdPg792pZT19pYO3cwKHI');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+<div class="relative z-10 max-w-3xl">
+<h1 class="text-5xl font-black text-white mb-6">Share Equipment • Save Lives</h1>
+<p class="text-lg text-slate-200 mb-8">Connecting healthcare providers to optimize medical resource sharing.</p>
+</div>
+</div>
+</main>
+<!-- Overlay Dimmer with Blur (Modified to achieve SCREEN_12 style background blur) -->
+<div class="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-40"></div>
+<!-- Sign In Modal -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+<div class="bg-white dark:bg-slate-900 w-full max-w-[440px] rounded-xl shadow-2xl overflow-hidden flex flex-col border border-primary/10">
+<!-- Modal Header -->
+<div class="p-8 pb-0 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="size-25 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
+<a href="{% url 'index' %}"><img src="{% static 'assets/ChatGPT Image Mar 18, 2026, 06_21_26 AM.png' %}" alt="LOGO" class="flex h-20 w-25 items-center justify-center rounded-lg bg-primary text-white"></a>
+</div>
+<a href="{% url 'index' %}"><button class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" type="button">
+<span class="material-symbols-outlined">close</span>
+</button>
+</a>
+</div>
+<h2 class="text-2xl font-bold mt-4">Welcome back</h2>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Please enter your credentials to access your health portal.</p>
+</div>
+<!-- Modal Body / Form -->
+<form class="p-8 flex flex-col gap-5" method="post">
+{% csrf_token %}
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">mail</span>
+<input class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-slate-400" placeholder="name@example.com" type="email" name="email" required/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Password</label>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">key</span>
+<input class="w-full pl-10 pr-12 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-slate-400" placeholder="••••••••" type="password" name="password" required/>
+</div>
+</div>
+<!-- hidden location -->
+    <input type="hidden" name="lat" id="lat">
+    <input type="hidden" name="long" id="long">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3.5 rounded-lg shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+<span>Login</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</form>
+{% if error %}
+    <p style="color:red;">{{ error }}</p>
+{% endif %}
+<script>
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        document.getElementById("lat").value = position.coords.latitude;
+        document.getElementById("long").value = position.coords.longitude;
+    });
+}
+</script>
+</div>
+</div>
+</div>
+</body></html>
