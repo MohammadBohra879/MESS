@@ -30,9 +30,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ["web-production-c1a8.up.railway.app",'127.0.0.1']
+ALLOWED_HOSTS = ["mediacalequipmentsharingsystem.up.railway.app",'127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ["https://web-production-c1a8.up.railway.app/",
+CSRF_TRUSTED_ORIGINS = ["https://mediacalequipmentsharingsystem.up.railway.app/",
                         "http://127.0.0.1"]
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CSRF_COOKIE_SECURE = True
