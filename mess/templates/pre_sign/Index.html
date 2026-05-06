@@ -124,7 +124,7 @@
  {% for equip in equipment %}
 <div class="group flex flex-col overflow-hidden rounded-xl border border-primary/10 bg-white transition hover:shadow-xl dark:bg-slate-800/50">
 <div class="relative aspect-[4/3] w-full overflow-hidden">
-<img class="h-full w-full max-w-full object-cover transition duration-500 group-hover:scale-110" data-alt= "{{ equip.equipment_name }}" src="{{ equip.equipment_img }}" alt="{{ equip.equipment_name }}"/>
+<img class="h-full w-full max-w-full object-cover transition duration-500 group-hover:scale-110" data-alt= "{{ equip.equipment_name }}" src="{{ equip.equipment_img.url }}" alt="{{ equip.equipment_name }}"/>
 <div class="absolute right-3 top-3">
 <span class="rounded-full bg-green-500/90 px-3 py-1 text-[10px] font-bold text-white backdrop-blur-sm lg:text-xs">{{ equip.available_status }}</span>
 </div>
